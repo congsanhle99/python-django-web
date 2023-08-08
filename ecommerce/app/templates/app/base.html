@@ -43,6 +43,22 @@
     <script type="text/javascript">
       let user = "{{request.user}}"
       let a = "{{request}}"
+      function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                // Does this cookie string begin with the name we want?
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+    const csrftoken = getCookie('csrftoken');
     </script>
   </head>
   <body>
@@ -122,6 +138,9 @@
           </li>
           <li class="nav-item">
             <a class="nav-link" href="{% url 'app:cart' %}">Giỏ hàng</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'app:update_item' %}">Update Item</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#">Đăng nhập</a>
