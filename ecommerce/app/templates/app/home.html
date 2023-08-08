@@ -48,7 +48,7 @@
       <hr>
       <h4 class="d-flex align-items-center justify-content-center p-2">${{product.price | floatformat:2}}</h4>
       <div class="d-flex align-items-center justify-content-around">
-        <button class="btn btn-outline-secondary add-btn">Add to cart</button>
+        <button data-product={{product.id}} data-action="add" class="btn btn-outline-secondary add-btn update-cart">Add to cart</button>
         <a class="btn btn-outline-success" href="#">View details</a>
       </div>
     </div>
