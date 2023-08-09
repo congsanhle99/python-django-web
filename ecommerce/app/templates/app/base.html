@@ -118,7 +118,20 @@
             <button class="btn btn-outline-success" type="submit">Search</button>
           </form>
         </div>
+        <div class="d-flex align-items-center justify-content-center form-inline my-2 my-lg-0">
+          <a href="{% url "app:cart" %}">
+            <img id="cart-icon" src="{% static 'images/cart.png' %}">
+          </a>
+          <p id="cart-total">{{cartItems}}</p>
+        </div>
+
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'app:login' %}">Đăng nhập</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'app:register' %}">Đăng ký</a>
+          </li>
           <li class="nav-item dropdown">
             <a
               class="nav-link dropdown-toggle"
@@ -127,28 +140,15 @@
               data-bs-toggle="dropdown"
               aria-expanded="false"
             >
-              User
+              Welcome {{request.user}}
             </a>
             <ul class="dropdown-menu">
               <li><a class="dropdown-item" href="#">Trang cá nhân</a></li>
               <li><a class="dropdown-item" href="#">Đơn hàng</a></li>
-              <li><a class="dropdown-item" href="#">Đăng xuất</a></li>
-              
+              <li><a class="dropdown-item" href="{% url 'app:logout' %}">Đăng xuất</a></li>
             </ul>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'app:login' %}">Đăng nhập</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'app:register' %}">Đăng ký</a>
-          </li>
         </ul>
-        <div class="d-flex align-items-center justify-content-center form-inline my-2 my-lg-0">
-          <a href="{% url "app:cart" %}">
-            <img id="cart-icon" src="{% static 'images/cart.png' %}">
-          </a>
-          <p id="cart-total">{{cartItems}}</p>
-        </div>
       </div>
     </nav>
     <!-- main content -->
@@ -157,6 +157,7 @@
     {% block cart_content %}{% endblock cart_content %}
     {% block content_checkout %}{% endblock content_checkout %}
     {% block register %}{% endblock register %}
+    {% block login %}{% endblock login %}
     <!-- footer -->
     {% comment %} <footer class="container-fluid bg-success text-center fixed-bottom p-2 mt-5">Copyright by lcsanh 2023</footer> {% endcomment %}
     <script src="" async defer></script>
