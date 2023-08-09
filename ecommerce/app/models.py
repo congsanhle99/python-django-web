@@ -5,17 +5,6 @@ from django.contrib.auth.forms import UserCreationForm
 # Create your models here.
 
 
-class Customer(models.Model):
-    user = models.OneToOneField(
-        User, on_delete=models.SET_NULL, null=True, blank=False)
-    name = models.CharField(max_length=200, null=True)
-    email = models.CharField(max_length=200, null=True)
-
-    def __str__(self):
-        return self.name
-    # when no img url
-
-
 class Product(models.Model):
     name = models.CharField(max_length=200, null=True)
     price = models.FloatField()
@@ -24,6 +13,7 @@ class Product(models.Model):
 
     def __str__(self):
         return self.name
+    # when no img url
 
     @property
     def ImageURL(self):
@@ -36,7 +26,7 @@ class Product(models.Model):
 
 class Order(models.Model):
     customer = models.ForeignKey(
-        Customer, on_delete=models.SET_NULL, null=True, blank=True)
+        User, on_delete=models.SET_NULL, null=True, blank=True)
     date_order = models.DateTimeField(auto_now_add=True)
     name = models.CharField(max_length=200, null=True)
     complete = models.BooleanField(default=False, null=True, blank=False)
@@ -81,7 +71,7 @@ class OrderItem(models.Model):
 
 class ShippingAddress(models.Model):
     customer = models.ForeignKey(
-        Customer, on_delete=models.SET_NULL, null=True, blank=True)
+        User, on_delete=models.SET_NULL, null=True, blank=True)
     order = models.ForeignKey(
         Order, on_delete=models.SET_NULL, null=True, blank=True)
     address = models.CharField(max_length=200, null=True)
