@@ -74,9 +74,9 @@ def updateItem(request):
 
 
 def register(request):
-    form = UserCreationForm()
+    form = CreateUserForm()
     if request.method == "POST":
-        form = UserCreationForm(request.POST)
+        form = CreateUserForm(request.POST)
         if form.is_valid():
             form.save()
     context = {"form": form}
