@@ -15,13 +15,18 @@ def home(request):
             customer=customer, complete=False)
         items = order.orderitem_set.all()
         cartItems = order.get_cart_items
+        user_not_login = "hidden"
+        user_login = "show"
     else:
         items = []
         order = {"get_cart_items": 0, "get_cart_total": 0}
         cartItems = order["get_cart_items"]
+        user_not_login = "show"
+        user_login = "hidden"
     products = Product.objects.all()
 
-    context = {"products": products, "cartItems": cartItems}
+    context = {"products": products, "cartItems": cartItems,
+               "user_not_login": user_not_login, "user_login": user_login}
     return render(request, "app/home.html", context)
 
 
@@ -32,12 +37,17 @@ def checkout(request):
             customer=customer, complete=False)
         items = order.orderitem_set.all()
         cartItems = order.get_cart_items
+        user_not_login = "hidden"
+        user_login = "show"
     else:
         items = []
         order = {"get_cart_items": 0, "get_cart_total": 0}
         cartItems = order["get_cart_items"]
+        user_not_login = "show"
+        user_login = "hidden"
 
-    context = {"items": items, "order": order, "cartItems": cartItems}
+    context = {"items": items, "order": order, "cartItems": cartItems,
+               "user_not_login": user_not_login, "user_login": user_login}
     return render(request, "app/checkout.html", context)
 
 
@@ -48,12 +58,17 @@ def cart(request):
             customer=customer, complete=False)
         items = order.orderitem_set.all()
         cartItems = order.get_cart_items
+        user_not_login = "hidden"
+        user_login = "show"
     else:
         items = []
         order = {"get_cart_items": 0, "get_cart_total": 0}
         cartItems = order["get_cart_items"]
+        user_not_login = "show"
+        user_login = "hidden"
 
-    context = {"items": items, "order": order, "cartItems": cartItems}
+    context = {"items": items, "order": order, "cartItems": cartItems,
+               "user_not_login": user_not_login, "user_login": user_login}
     return render(request, "app/cart.html", context)
 
 
@@ -79,6 +94,12 @@ def updateItem(request):
 
 
 def register(request):
+    if request.user.is_authenticated:
+        user_not_login = "hidden"
+        user_login = "show"
+    else:
+        user_not_login = "show"
+        user_login = "hidden"
     form = CreateUserForm()
     if request.method == "POST":
         form = CreateUserForm(request.POST)
@@ -86,13 +107,19 @@ def register(request):
             form.save()
             return redirect("app:login")
 
-    context = {"form": form}
+    context = {"form": form, "user_not_login": user_not_login,
+               "user_login": user_login}
     return render(request, "app/register.html", context)
 
 
 def loginPage(request):
     if request.user.is_authenticated:
+        user_not_login = "hidden"
+        user_login = "show"
         return redirect("app:home")
+    else:
+        user_not_login = "show"
+        user_login = "hidden"
     if request.method == "POST":
         username = request.POST.get("username")
         password = request.POST.get("password")
@@ -103,7 +130,7 @@ def loginPage(request):
         else:
             messages.error(request, "User or Password is not valid!")
 
-    context = {}
+    context = {"user_not_login": user_not_login, "user_login": user_login}
     return render(request, "app/login.html", context)
 
 
@@ -122,11 +149,15 @@ def search(request):
             customer=customer, complete=False)
         items = order.orderitem_set.all()
         cartItems = order.get_cart_items
+        user_not_login = "hidden"
+        user_login = "show"
     else:
         items = []
         order = {"get_cart_items": 0, "get_cart_total": 0}
         cartItems = order["get_cart_items"]
+        user_not_login = "show"
+        user_login = "hidden"
 
     context = {"searched": searched, "keys": keys,
-               "items": items, "cartItems": cartItems}
+               "items": items, "cartItems": cartItems, "user_not_login": user_not_login, "user_login": user_login}
     return render(request, "app/search.html", context)
