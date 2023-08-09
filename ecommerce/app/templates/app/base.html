@@ -113,8 +113,9 @@
               <a class="nav-link" href="#">Về chúng tôi</a>
             </li>
           </ul>
-          <form class="d-flex" role="search">
-            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
+          <form class="d-flex" role="search" method="POST" action="{% url 'app:search' %}">
+            {% csrf_token %}
+            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="searched" />
             <button class="btn btn-outline-success" type="submit">Search</button>
           </form>
         </div>
@@ -158,6 +159,7 @@
     {% block content_checkout %}{% endblock content_checkout %}
     {% block register %}{% endblock register %}
     {% block login %}{% endblock login %}
+    {% block search %}{% endblock search %}
     <!-- footer -->
     {% comment %} <footer class="container-fluid bg-success text-center fixed-bottom p-2 mt-5">Copyright by lcsanh 2023</footer> {% endcomment %}
     <script src="" async defer></script>

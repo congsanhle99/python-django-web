@@ -1,0 +1,36 @@
+{% extends 'app/base.html' %} {% load static %}
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Search</title>
+  </head>
+  <body>
+    {% block search %}
+    <h5>Result search for {{searched}}</h5>
+    <br />
+    <div class="row" style="margin-bottom: 64px; width: 100%;">
+      {% for product in keys %}
+      <div class="col-lg-3 mb-2">
+        <div class="d-flex align-items-center justify-content-around">
+          {% if product.image %}
+            <img class="thumbnail" src="{{product.image.url}}" alt="">
+          {% endif %}
+            {% comment %} <img class="thumbnail" src="{{product.ImageURL}}" alt=""> {% endcomment %}
+        </div>
+        <div class="box-element product">
+          <h6>{{product.name}}</h6>
+          <hr>
+          <h4 class="d-flex align-items-center justify-content-center p-2">${{product.price | floatformat:2}}</h4>
+          <div class="d-flex align-items-center justify-content-around">
+            <button data-product={{product.id}} data-action="add" class="btn btn-outline-secondary add-btn update-cart">Add to cart</button>
+            <a class="btn btn-outline-success" href="#">View details</a>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    
+    {% endblock search %}
+  </body>
+</html>
