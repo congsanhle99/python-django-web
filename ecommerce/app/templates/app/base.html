@@ -100,10 +100,11 @@
                 Sản phẩm
               </a>
               <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="#">Sữa</a></li>
-                <li><a class="dropdown-item" href="#">Kẹo</a></li>
-                <li><a class="dropdown-item" href="#">Bánh</a></li>
-                
+                {% for category in categories %}
+                <li>
+                  <a class="dropdown-item" href="{% url 'app:category' %}?category={{category.slug}}">{{category.name}}</a>
+                </li>              
+                {% endfor %}
               </ul>
             </li>
             <li class="nav-item">

@@ -23,10 +23,11 @@ def home(request):
         cartItems = order["get_cart_items"]
         user_not_login = "show"
         user_login = "hidden"
+    categories = Category.objects.filter(is_sub=False)
     products = Product.objects.all()
 
     context = {"products": products, "cartItems": cartItems,
-               "user_not_login": user_not_login, "user_login": user_login}
+               "user_not_login": user_not_login, "user_login": user_login, "categories": categories}
     return render(request, "app/home.html", context)
 
 
@@ -161,3 +162,14 @@ def search(request):
     context = {"searched": searched, "keys": keys,
                "items": items, "cartItems": cartItems, "user_not_login": user_not_login, "user_login": user_login}
     return render(request, "app/search.html", context)
+
+
+def category(request):
+    categories = Category.objects.filter(is_sub=False)
+    active_category = request.GET.get("category", "")
+    if active_category:
+        products = Product.objects.filter(category__slug=active_category)
+
+    context = {"categories": categories,
+               "active_category": active_category, "products": products}
+    return render(request, "app/category.html", context)
