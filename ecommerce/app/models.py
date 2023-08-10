@@ -21,6 +21,7 @@ class Product(models.Model):
     category = models.ManyToManyField(Category, related_name="product")
     price = models.FloatField()
     digital = models.BooleanField(default=False, null=True, blank=False)
+    detail = models.TextField(null=True, blank=True)
     image = models.ImageField(null=True, blank=True)
 
     def __str__(self):

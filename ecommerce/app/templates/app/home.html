@@ -53,7 +53,7 @@
         <button data-product="{{product.id}}" data-action="add" class="btn btn-outline-secondary add-btn update-cart">
           Add to cart
         </button>
-        <a class="btn btn-outline-success" href="#">View details</a>
+        <a class="btn btn-outline-success" href="{% url 'app:detail' %}?id={{product.id}}">View details</a>
       </div>
     </div>
   </div>

@@ -173,3 +173,26 @@ def category(request):
     context = {"categories": categories,
                "active_category": active_category, "products": products}
     return render(request, "app/category.html", context)
+
+
+def detail(request):
+    if request.user.is_authenticated:
+        customer = request.user
+        order, created = Order.objects.get_or_create(
+            customer=customer, complete=False)
+        items = order.orderitem_set.all()
+        cartItems = order.get_cart_items
+        user_not_login = "hidden"
+        user_login = "show"
+    else:
+        items = []
+        order = {"get_cart_items": 0, "get_cart_total": 0}
+        cartItems = order["get_cart_items"]
+        user_not_login = "show"
+        user_login = "hidden"
+
+    id = request.GET.get("id", "")
+    products = Product.objects.filter(id=id)
+    context = {"items": items, "order": order, "cartItems": cartItems,
+               "user_not_login": user_not_login, "user_login": user_login, "products": products}
+    return render(request, "app/detail.html", context)
